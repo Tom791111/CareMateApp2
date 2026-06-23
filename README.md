@@ -278,12 +278,6 @@ Main.java
 
 ---
 
-## 🎥 系統展示影片
-
-點擊觀看完整 Demo
-
-[▶ 系統展示影片](./media/CareMateDemo.mp4)
-
 ---
 
 ## 📷 系統畫面
