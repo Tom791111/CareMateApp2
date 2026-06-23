@@ -6,6 +6,8 @@ import service.impl.MemberServiceImpl;
 
 import javax.swing.*;
 import java.awt.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class AddMemberFrame extends JFrame {
 
@@ -14,6 +16,8 @@ public class AddMemberFrame extends JFrame {
     private JTextField accountField;
     private JPasswordField passwordField;
     private JTextField addressField;
+
+    private JLabel timeLabel;
 
     private String role;
 
@@ -24,13 +28,11 @@ public class AddMemberFrame extends JFrame {
         this.role = role;
 
         setTitle("CareMate - 我的帳戶");
-        setSize(400, 700);
+        setSize(400, 720);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
         getContentPane().setBackground(new Color(250, 247, 242));
-        
-        /**********************************event***********************************/
 
         JButton backBtn = new JButton("←");
         backBtn.setFont(new Font("Arial", Font.BOLD, 18));
@@ -47,25 +49,31 @@ public class AddMemberFrame extends JFrame {
 
         JLabel title = new JLabel("我的帳戶", SwingConstants.CENTER);
         title.setFont(new Font("Microsoft JhengHei", Font.BOLD, 28));
-        title.setBounds(90, 90, 220, 40);
+        title.setBounds(90, 80, 220, 40);
         add(title);
+
+        timeLabel = new JLabel("", SwingConstants.CENTER);
+        timeLabel.setFont(new Font("Microsoft JhengHei", Font.PLAIN, 13));
+        timeLabel.setForeground(Color.GRAY);
+        timeLabel.setBounds(60, 122, 280, 25);
+        add(timeLabel);
 
         JLabel roleLabel = new JLabel("目前身分：" + role, SwingConstants.CENTER);
         roleLabel.setFont(new Font("Microsoft JhengHei", Font.PLAIN, 14));
-        roleLabel.setBounds(90, 130, 220, 30);
+        roleLabel.setBounds(70, 148, 260, 30);
         add(roleLabel);
 
-        nameField = createInput("姓名：", 48, 170);
-        phoneField = createInput("手機號碼：", 48, 235);
-        accountField = createInput("帳號：", 48, 300);
-        passwordField = createPasswordInput("密碼：", 48, 365);
-        addressField = createInput("通訊 / 服務地址：", 48, 430);
+        nameField = createInput("姓名：", 48, 190);
+        phoneField = createInput("手機號碼：", 48, 255);
+        accountField = createInput("帳號：", 48, 320);
+        passwordField = createPasswordInput("密碼：", 48, 385);
+        addressField = createInput("通訊 / 服務地址：", 48, 450);
 
         JButton submitBtn = new JButton("確定送出");
         submitBtn.setFont(new Font("Microsoft JhengHei", Font.BOLD, 18));
         submitBtn.setForeground(Color.WHITE);
         submitBtn.setBackground(new Color(121, 108, 106));
-        submitBtn.setBounds(65, 535, 260, 50);
+        submitBtn.setBounds(65, 545, 260, 50);
         submitBtn.setFocusPainted(false);
         add(submitBtn);
 
@@ -73,7 +81,7 @@ public class AddMemberFrame extends JFrame {
         loginBtn.setFont(new Font("Microsoft JhengHei", Font.BOLD, 16));
         loginBtn.setForeground(Color.WHITE);
         loginBtn.setBackground(new Color(89, 146, 205));
-        loginBtn.setBounds(65, 605, 120, 40);
+        loginBtn.setBounds(65, 615, 120, 40);
         loginBtn.setFocusPainted(false);
         add(loginBtn);
 
@@ -81,7 +89,7 @@ public class AddMemberFrame extends JFrame {
         clearBtn.setFont(new Font("Microsoft JhengHei", Font.BOLD, 16));
         clearBtn.setForeground(Color.WHITE);
         clearBtn.setBackground(new Color(226, 57, 84));
-        clearBtn.setBounds(205, 605, 120, 40);
+        clearBtn.setBounds(205, 615, 120, 40);
         clearBtn.setFocusPainted(false);
         add(clearBtn);
 
@@ -95,6 +103,8 @@ public class AddMemberFrame extends JFrame {
         loginBtn.addActionListener(e -> login());
 
         clearBtn.addActionListener(e -> clearFields());
+
+        startClock();
 
         setVisible(true);
     }
@@ -127,6 +137,18 @@ public class AddMemberFrame extends JFrame {
         add(field);
 
         return field;
+    }
+
+    private void startClock() {
+
+        DateTimeFormatter formatter =
+                DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+
+        Timer timer = new Timer(1000, e -> {
+            timeLabel.setText("系統時間：" + LocalDateTime.now().format(formatter));
+        });
+
+        timer.start();
     }
 
     private void register() {

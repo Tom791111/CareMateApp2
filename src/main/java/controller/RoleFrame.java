@@ -2,16 +2,20 @@ package controller;
 
 import javax.swing.*;
 import java.awt.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class RoleFrame extends JFrame {
 
     private JLabel foreignTitle;
+    private JLabel timeLabel;
+
     private String selectedForeignRole = "外籍照顧者-TW";
 
     public RoleFrame() {
 
         setTitle("CareMate - 選擇身分");
-        setSize(400, 700);
+        setSize(400, 720);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
@@ -20,16 +24,20 @@ public class RoleFrame extends JFrame {
         JLabel title = new JLabel("<html>請選擇<br>您的身分</html>");
         title.setFont(new Font("Microsoft JhengHei", Font.BOLD, 28));
         title.setForeground(new Color(45, 45, 55));
-        title.setBounds(35, 65, 250, 80);
+        title.setBounds(35, 55, 250, 80);
         add(title);
 
         JLabel subTitle = new JLabel("choose your role");
         subTitle.setFont(new Font("Arial", Font.PLAIN, 16));
         subTitle.setForeground(new Color(45, 45, 55));
-        subTitle.setBounds(37, 160, 200, 30);
+        subTitle.setBounds(37, 150, 200, 30);
         add(subTitle);
-        
-        /**********************************event***********************************/
+
+        timeLabel = new JLabel("", SwingConstants.CENTER);
+        timeLabel.setFont(new Font("Microsoft JhengHei", Font.PLAIN, 13));
+        timeLabel.setForeground(Color.GRAY);
+        timeLabel.setBounds(45, 185, 300, 25);
+        add(timeLabel);
 
         JButton familyBtn = createRoleButton("我是家屬（照顧者）", new Color(139, 190, 70));
         familyBtn.setBounds(30, 230, 330, 80);
@@ -103,6 +111,8 @@ public class RoleFrame extends JFrame {
             selectedForeignRole = "外籍照顧者-ID";
         });
 
+        startClock();
+
         setVisible(true);
     }
 
@@ -127,6 +137,18 @@ public class RoleFrame extends JFrame {
         button.setFocusPainted(false);
 
         return button;
+    }
+
+    private void startClock() {
+
+        DateTimeFormatter formatter =
+                DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+
+        Timer timer = new Timer(1000, e -> {
+            timeLabel.setText("系統時間：" + LocalDateTime.now().format(formatter));
+        });
+
+        timer.start();
     }
 
     private void openRegister(String role) {
