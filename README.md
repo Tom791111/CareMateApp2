@@ -280,24 +280,6 @@ Main.java
 
 ---
 
-## 📷 系統畫面
-
-### 身分選擇
-
-![Role](images/role.png)
-
-### 我的帳戶
-
-![Account](images/account.png)
-
-### 首頁
-
-![Home](images/home.png)
-
-### 血壓體溫紀錄
-
-![Health](images/health.png)
-
 ---
 
 ## 🔮 未來開發規劃
